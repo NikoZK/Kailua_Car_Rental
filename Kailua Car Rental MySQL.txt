@@ -1,0 +1,45 @@
+CREATE TABLE Car(
+car_id INT auto_increment primary key,
+brand VARCHAR(40) NOT NULL,
+model VARCHAR(40) NOT NULL,
+FuelType VARCHAR(10) NOT NULL CHECK (FuelType IN ('Gasoline', 'Diesel', 'Electric')),
+reg_number VARCHAR(20) NOT NULL unique,
+reg_date DATE NOT NULL,
+odometer INT NOT NULL,
+cargroup_id INT NOT NULL,
+foreign key (cargroup_id) REFERENCES CarGroup(cargroup_id)
+);
+
+CREATE TABLE CarGroup(
+ cargroup_id INT primary key,
+ group_name VARCHAR(40) NOT NULL
+ );
+
+CREATE TABLE Renter(
+renter_id INT auto_increment primary key,
+f_name VARCHAR(30) NOT NULL,
+l_name VARCHAR(30) NOT NULL,
+address VARCHAR(50) NOT NULL,
+zip VARCHAR(15) NOT NULL,
+city VARCHAR(30) NOT NULL,
+m_number VARCHAR(15) NOT NULL,
+p_number VARCHAR(15),
+email VARCHAR(40) NOT NULL unique,
+driverslicence_id VARCHAR(50) NOT NULL unique,
+driver_since DATE NOT NULL
+);
+
+
+CREATE TABLE Contract(
+contract_id INT auto_increment primary key,
+renter_id INT NOT NULL,
+car_id INT NOT NULL,
+start_date_time datetime NOT NULL,
+end_date_time datetime NOT NULL,
+max_km INT NOT NULL CHECK (max_km >= 0),
+odometer_start INT NOT NULL CHECK (odometer_start >= 0),
+odometer_end INT NOT NULL DEFAULT 0 CHECK (odometer_end >= 0),
+status VARCHAR(15) NOT NULL CHECK (status IN ('Active', 'Completed', 'Canceled')),
+foreign key (renter_id) REFERENCES Renter(renter_id),
+foreign key (car_id) REFERENCES Car(car_id) ON DELETE SET NULL
+);
