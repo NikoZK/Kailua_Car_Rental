@@ -59,6 +59,61 @@ public class Car {
         };
     }
 
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public FuelType getFuelType() {
+        return fuelType;
+    }
+
+    public boolean isAutomatic() {
+        return isAutomatic;
+    }
+
+    public boolean isAirCondition() {
+        return airCondition;
+    }
+
+    public boolean isCruiseControl() {
+        return cruiseControl;
+    }
+
+    public boolean isLeatherSeats() {
+        return leatherSeats;
+    }
+
+    public int getHorsepower() {
+        return horsepower;
+    }
+
+    public int getCc() {
+        return cc;
+    }
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public String getRegNumber() {
+        return regNumber;
+    }
+
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public int getOdometer() {
+        return odometer;
+    }
+
+    public int getCargroupId() {
+        return cargroupId;
+    }
 
     @Override
     public String toString() {

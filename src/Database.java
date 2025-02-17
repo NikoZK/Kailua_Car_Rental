@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    private static final String URL = "jdbc:mysql://localhost:3306/telefonbog"; //Database navn
+    private static final String URL = "jdbc:mysql://localhost:3306/kailua_car_rental"; //Database navn
     private static final String USER = "root";  // MySQL brugernavn
     private static final String PASSWORD = "rootroot";  // MySQL password
 

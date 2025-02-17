@@ -6,6 +6,8 @@ public class Zip {
         this.zipCode = zipCode;
         this.city = city;
     }
+    public Zip(){
+    }
 
     // Getters and setters
     public String getZipCode() {
