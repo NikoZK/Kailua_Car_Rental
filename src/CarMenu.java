@@ -10,6 +10,7 @@ public class CarMenu {
     public void Car_Menu() {
 
         while (true) {
+            System.out.println(" ");
             System.out.println(" ██████  █████  ██████      ███    ███ ███████ ███    ██ ██    ██ \n" +
                     "██      ██   ██ ██   ██     ████  ████ ██      ████   ██ ██    ██ \n" +
                     "██      ███████ ██████      ██ ████ ██ █████   ██ ██  ██ ██    ██ \n" +
@@ -18,19 +19,20 @@ public class CarMenu {
                     "                                                                  \n" +
                     "                                                                  ");
 
-            System.out.println("Press 1 - See all available cars");
-            System.out.println("Press 2 - Add a car to the system");
-            System.out.println("Press 3 - Remove a car from the system");
-            System.out.println("Press 4 - Adjust the odometer");
-            System.out.println("Press 5 - Change the registration number");
-            System.out.println("Press 9 - Go back to main menu");
-            System.out.printf("Press 0 - exit the program\n");
+            System.out.println("                 Press 1 - See cars");
+            System.out.println("                 Press 2 - Add a car");
+            System.out.println("                 Press 3 - Remove a car");
+            System.out.println("                 Press 4 - See all information about a car");
+            System.out.println("                 Press 5 - Adjust the odometer");
+            System.out.println("                 Press 6 - Change the registration number");
+            System.out.println(" ");
+            System.out.println("                 Press 9 - Back to main menu");
+            System.out.println("                 Press 0 - exit the program\n");
             int valg = scanner.nextInt();
             scanner.nextLine();
 
             switch (valg) {
                 case 1:
-                    System.out.println("");
                     seeCarsMenu();
                     break;
 
@@ -84,10 +86,13 @@ public class CarMenu {
 
                     System.out.print("Enter odometer reading: ");
                     int odometer = scanner.nextInt();
+
+                    boolean available = true;
+
                     System.out.println("The car has successfully been added to the system!");
 
                     Car car = new Car(0, brand, model, fuelType, isAutomatic, airCondition, cruiseControl,
-                            leatherSeats, horsepower, cc, seats, regNumber, regDate, odometer);
+                            leatherSeats, horsepower, cc, seats, regNumber, regDate, odometer, available);
 
                     cm.addCar(car);
                     break;
@@ -99,10 +104,14 @@ public class CarMenu {
                     break;
 
                 case 4:
-                    cm.showFamilyCars();
+                    cm.showCarInfo();
                     break;
 
                 case 5:
+                    cm.updateOdometer();
+                    break;
+
+                case 6:
                     cm.editRegNumber();
                     break;
 

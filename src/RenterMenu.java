@@ -11,6 +11,7 @@ public class RenterMenu {
     public void renter_Menu() {
 
         while (true) {
+            System.out.println(" ");
             System.out.println("██████  ███████ ███    ██ ████████ ███████ ██████      ███    ███ ███████ ███    ██ ██    ██ \n" +
                     "██   ██ ██      ████   ██    ██    ██      ██   ██     ████  ████ ██      ████   ██ ██    ██ \n" +
                     "██████  █████   ██ ██  ██    ██    █████   ██████      ██ ████ ██ █████   ██ ██  ██ ██    ██ \n" +
@@ -19,12 +20,13 @@ public class RenterMenu {
                     "                                                                                             \n" +
                     "                                                                                             ");
 
-            System.out.println("Press 1 to see all renters");
-            System.out.println("Press 2 to add a renter to the system");
-            System.out.println("Press 3 to remove a renter from the system");
-            System.out.println("Press 4 to modify a renter in the system");
-            System.out.println("Press 9 to go back to main menu");
-            System.out.println("Press 0 to exit the program\n");
+            System.out.println("                          Press 1 - See all renters");
+            System.out.println("                          Press 2 - Add a renter");
+            System.out.println("                          Press 3 - Remove a renter");
+            System.out.println("                          Press 4 - Modify a renter");
+            System.out.println(" ");
+            System.out.println("                          Press 9 - Back to main menu");
+            System.out.println("                          Press 0 - Exit the program\n");
             int valg = scanner.nextInt();
             scanner.nextLine();
 
@@ -32,8 +34,8 @@ public class RenterMenu {
                 case 1:
                     List<Renter> renters = rm.getAllRenters();
                     for (Renter r : renters) {
-                        System.out.println("[ Name: " + r.getF_name() + " " + r.getL_name() + " ]  [ Address: " + r.getZip()
-                                + " ]  [ Contact information: " + r.getM_number() + ", " + r.getEmail() + " ]  [ Driver information. ID: "
+                        System.out.println(r.getRenter_id() + ". [ " + r.getF_name() + " " + r.getL_name() + " ]  [ Address: " + r.getAddress() + " - " + r.getZip()
+                                + " ]  [ Contact information: " + r.getM_number() + "/" + r.getP_number() + " - "+ r.getEmail() + " ]  [ Driver information. ID: "
                         + r.getDriverslicence_id() + ", Driving since: " + r.getDriver_since() + " ]");
                     }
                     break;
@@ -83,6 +85,24 @@ public class RenterMenu {
 
                         rm.saveRenter(renter);
                         break;
+
+                case 3:
+                    List<Renter> rentersList = rm.getAllRenters();
+                    System.out.println("List of renters: ");
+                    for (Renter r : rentersList) {
+                        System.out.println("ID: " + r.getRenter_id() + ". Name: " + r.getF_name() + " " + r.getL_name());
+                    }
+                    System.out.println("Enter the ID of the renter you want to delete: ");
+                    int renterDelete = scanner.nextInt();
+                    scanner.nextLine();
+
+                    rm.deleteRenter(renterDelete);
+                    System.out.println("Renter successfully deleted from the system.");
+                     break;
+
+                case 4:
+                    rm.modifyRenter();
+                    break;
 
                 case 9:
                     Menu menu = new Menu();

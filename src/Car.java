@@ -16,11 +16,12 @@ public class Car {
     private Date regDate;
     private int odometer;
     private int cargroupId;
+    private boolean available;
 
 
     public Car(int carId, String brand, String model, FuelType fuelType, boolean isAutomatic,
                boolean airCondition, boolean cruiseControl, boolean leatherSeats,
-               int horsepower, int cc, int seats, String regNumber, Date regDate, int odometer) {
+               int horsepower, int cc, int seats, String regNumber, Date regDate, int odometer, boolean available) {
         this.carId = carId;
         this.brand = brand;
         this.model = model;
@@ -36,6 +37,7 @@ public class Car {
         this.regDate = regDate;
         this.odometer = odometer;
         this.cargroupId = determineCarGroup();
+        this.available = available;
     }
 
     private int determineCarGroup() {
@@ -57,6 +59,10 @@ public class Car {
             case 3 -> "Sport";
             default -> "Unknown";
         };
+    }
+
+    public int getCarId() {
+        return carId;
     }
 
     public String getBrand() {
@@ -115,6 +121,10 @@ public class Car {
         return cargroupId;
     }
 
+    public boolean isAvailable(){
+        return available;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -132,7 +142,7 @@ public class Car {
                 ", regNumber='" + regNumber + '\'' +
                 ", regDate=" + regDate +
                 ", odometer=" + odometer +
-                ", carGroup=" + cargroupId +
+                ", carGroup=" + cargroupId + "available: " + available +
                 '}';
     }
 }

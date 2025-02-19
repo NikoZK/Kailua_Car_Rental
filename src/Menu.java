@@ -4,6 +4,7 @@ public class Menu {
     Scanner scanner = new Scanner(System.in);
     CarMenu carMenu = new CarMenu();
     RenterMenu renterMenu = new RenterMenu();
+    ContractMenu contractMenu = new ContractMenu();
 
 
     public void displayMenu(){
@@ -14,10 +15,11 @@ public class Menu {
                 "██   ██ ██   ██ ██ ███████  ██████  ██   ██      ██████ ██   ██ ██   ██     ██   ██ ███████ ██   ████    ██    ██   ██ ███████ \n" +
                 "                                                                                                                               \n" +
                 "                                                                                                                               ");
-        System.out.println("Press 1 for car menu.");
-        System.out.println("Press 2 for renter menu.");
-        System.out.println("Press 3 for contract menu.");
-        System.out.println("Press 0 to exit");
+        System.out.println("                                                Press 1 for car menu");
+        System.out.println("                                                Press 2 for renter menu");
+        System.out.println("                                                Press 3 for contract menu");
+        System.out.println(" ");
+        System.out.println("                                                Press 0 to exit");
         int valg = scanner.nextInt();
         scanner.nextLine();
 
@@ -27,6 +29,9 @@ public class Menu {
 
             case 2:
                 renterMenu.renter_Menu();
+
+            case 3:
+                contractMenu.Contract_Menu();
 
             case 0:
                 System.exit(0);
