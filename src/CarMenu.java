@@ -7,9 +7,9 @@ public class CarMenu {
     private Scanner scanner = new Scanner(System.in);
     CarManager cm = new CarManager();
 
-    public void Car_Menu(){
+    public void Car_Menu() {
 
-        while(true){
+        while (true) {
             System.out.println(" ██████  █████  ██████      ███    ███ ███████ ███    ██ ██    ██ \n" +
                     "██      ██   ██ ██   ██     ████  ████ ██      ████   ██ ██    ██ \n" +
                     "██      ███████ ██████      ██ ████ ██ █████   ██ ██  ██ ██    ██ \n" +
@@ -18,18 +18,20 @@ public class CarMenu {
                     "                                                                  \n" +
                     "                                                                  ");
 
-            System.out.println("Press 1 to see all available cars");
-            System.out.println("Press 2 to add a car to the system");
-            System.out.println("Press 3 to remove a car from the system");
-            System.out.println("Press 4 adjust the odometer");
-            System.out.printf("Press 0 to exit\n");
+            System.out.println("Press 1 - See all available cars");
+            System.out.println("Press 2 - Add a car to the system");
+            System.out.println("Press 3 - Remove a car from the system");
+            System.out.println("Press 4 - Adjust the odometer");
+            System.out.println("Press 5 - Change the registration number");
+            System.out.println("Press 9 - Go back to main menu");
+            System.out.printf("Press 0 - exit the program\n");
             int valg = scanner.nextInt();
             scanner.nextLine();
 
-            switch(valg){
+            switch (valg) {
                 case 1:
-                    System.out.println("List of all our cars: ");
-                    cm.showAllCars();
+                    System.out.println("");
+                    seeCarsMenu();
                     break;
 
                 case 2:
@@ -72,16 +74,17 @@ public class CarMenu {
                     System.out.println("Enter registration date: (YYYY-MM-DD): ");
                     String regDateInput = scanner.nextLine();
                     Date regDate = null;
-                    try{
+                    try {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         regDate = dateFormat.parse(regDateInput);
-                    } catch(ParseException e){
+                    } catch (ParseException e) {
                         System.out.println("Invalid date format, remember to use YYYY-MM-DD");
                         return;
                     }
 
                     System.out.print("Enter odometer reading: ");
                     int odometer = scanner.nextInt();
+                    System.out.println("The car has successfully been added to the system!");
 
                     Car car = new Car(0, brand, model, fuelType, isAutomatic, airCondition, cruiseControl,
                             leatherSeats, horsepower, cc, seats, regNumber, regDate, odometer);
@@ -89,9 +92,60 @@ public class CarMenu {
                     cm.addCar(car);
                     break;
 
-                case 0:
+                case 3:
+                    System.out.println("Enter the car id of the car you want to delete");
+                    int deleteCarId = scanner.nextInt();
+                    cm.deleteCar(deleteCarId);
+                    break;
+
+                case 4:
+                    cm.showFamilyCars();
+                    break;
+
+                case 5:
+                    cm.editRegNumber();
+                    break;
+
+                case 9:
                     Menu menu = new Menu();
                     menu.displayMenu();
+                case 0:
+                    System.exit(1);
+            }
+        }
+    }
+
+    public void seeCarsMenu() {
+        while (true) {
+            System.out.println("\nChoose a category: ");
+            System.out.println("Press 1 - see all cars");
+            System.out.println("Press 2 - see all luxury cars");
+            System.out.println("Press 3 - see all family cars");
+            System.out.println("Press 4 - see all sports cars");
+            System.out.println("Press 9 - return");
+            int valg = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (valg) {
+                case 1:
+                    cm.showAllCars();
+                    break;
+
+                case 2:
+                    cm.showLuxuryCars();
+                    break;
+
+                case 3:
+                    cm.showFamilyCars();
+                    break;
+
+                case 4:
+                    cm.showSportsCars();
+                    break;
+
+                case 9:
+                    Car_Menu();
+                    break;
             }
         }
     }

@@ -1,6 +1,7 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class RenterMenu {
@@ -22,13 +23,19 @@ public class RenterMenu {
             System.out.println("Press 2 to add a renter to the system");
             System.out.println("Press 3 to remove a renter from the system");
             System.out.println("Press 4 to modify a renter in the system");
-            System.out.println("Press 0 to exit\n");
+            System.out.println("Press 9 to go back to main menu");
+            System.out.println("Press 0 to exit the program\n");
             int valg = scanner.nextInt();
             scanner.nextLine();
 
             switch (valg) {
                 case 1:
-                    rm.showAllRenters();
+                    List<Renter> renters = rm.getAllRenters();
+                    for (Renter r : renters) {
+                        System.out.println("[ Name: " + r.getF_name() + " " + r.getL_name() + " ]  [ Address: " + r.getZip()
+                                + " ]  [ Contact information: " + r.getM_number() + ", " + r.getEmail() + " ]  [ Driver information. ID: "
+                        + r.getDriverslicence_id() + ", Driving since: " + r.getDriver_since() + " ]");
+                    }
                     break;
 
                     case 2:
@@ -70,17 +77,19 @@ public class RenterMenu {
                             System.out.println("Invalid date format, remember to use YYYY-MM-DD");
                             return;
                         }
-
-
+                        System.out.println("Renter successfully saved in system.");
 
                         Renter renter = new Renter(0, f_name, l_name, address, zip, m_number, p_number, email, driverslicence_id, driver_since);
 
                         rm.saveRenter(renter);
                         break;
 
-                case 0:
+                case 9:
                     Menu menu = new Menu();
                     menu.displayMenu();
+
+                case 0:
+                    System.exit(1);
             }
         }
     }

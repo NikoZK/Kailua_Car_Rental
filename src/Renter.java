@@ -68,18 +68,16 @@ public class Renter {
 
     @Override
     public String toString() {
-        return "Renter{" +
-                "renterId=" + renter_id +
-                ", fName='" + f_name + '\'' +
-                ", lName='" + l_name + '\'' +
-                ", address='" + address + '\'' +
-                ", zip=" + zip +
-                ", mNumber='" + m_number + '\'' +
-                ", pNumber='" + p_number + '\'' +
-                ", email='" + email + '\'' +
-                ", driversLicenceId='" + driverslicence_id + '\'' +
-                ", driverSince=" + driver_since +
-                '}';
+        return "Renter ID: " + renter_id +
+                ", Name: " + f_name + " " + l_name +
+                ", Address: " + address +
+                ", Zip: " + zip.getZipCode() + " (" + zip.getCity() + ")" +
+                ", Mobile: " + m_number +
+                (p_number.isEmpty() ? "" : ", Phone: " + p_number) +
+                ", Email: " + email +
+                ", License ID: " + driverslicence_id +
+                ", Licensed Since: " + driver_since;
     }
+
 }
 

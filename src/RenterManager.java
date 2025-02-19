@@ -1,26 +1,41 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RenterManager {
 
 
-    public void showAllRenters(){
-        String sql = "SELECT * FROM renter";
+    public List<Renter> getAllRenters() {
+        List<Renter> renters = new ArrayList<>();
+        String sql = "SELECT renter.*, zip.city FROM renter " +
+                "JOIN zip ON renter.`zip` = zip.`zip`";
+
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery())
-        {
-            System.out.println("Renter List: ");
-                while(rs.next()){
-                    System.out.println("Name: " + rs.getString("f_name") + " " + rs.getString("l_name")
-                    + ". \uD83C\uDFE0Address: " + rs.getString("address") + ", " + rs.getString("zip")
-                            + ". \uD83D\uDCC7Contact information, number: " + rs.getString("m_number") +" and email: " + rs.getString("email")
-                            + ". \uD83E\uDEAADrivers ID: " + rs.getString("driverslicence_id") + ", Driving since: " + rs.getString("driver_since"));
-                }
+             ResultSet rs = stmt.executeQuery()) {
 
-        }catch(SQLException e){
-            System.out.println("ERROR: " + e.getMessage());
+            while (rs.next()) {
+                Zip zip = new Zip(rs.getString("zip"), rs.getString("city")); // Create Zip object
+                Renter renter = new Renter(
+                        rs.getInt("renter_id"),
+                        rs.getString("f_name"),
+                        rs.getString("l_name"),
+                        rs.getString("address"),
+                        zip,
+                        rs.getString("m_number"),
+                        rs.getString("p_number"),
+                        rs.getString("email"),
+                        rs.getString("driverslicence_id"),
+                        rs.getDate("driver_since")
+                );
+                renters.add(renter);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return renters;
     }
+
 
 
     public void saveRenter(Renter renter) {
