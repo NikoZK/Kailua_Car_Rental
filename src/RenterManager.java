@@ -69,13 +69,12 @@ public class RenterManager {
     public void modifyRenter() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the renter ID you want to modify:");
-        int renterId = scanner.nextInt();
-        scanner.nextLine();
+        int renterId = Integer.parseInt(scanner.nextLine());
+
 
         System.out.println("Which field do you want to update?");
         System.out.println("1. First name\n2. Last name\n3. Address\n4. Mobile number\n5. Home phone number\n6. Email address\n7. Drivers licence ID\n8. Driver since date\n9. Return");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+        int choice = Integer.parseInt(scanner.nextLine());
 
         String field = "";
         String newValue = "";
@@ -127,7 +126,6 @@ public class RenterManager {
                 return;
         }
 
-        // SQL Update Query
         String sql = "UPDATE renter SET " + field + " = ? WHERE renter_id = ?";
 
         try (Connection conn = Database.getConnection();
@@ -173,7 +171,7 @@ public class RenterManager {
 
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("ERROR: " + e.getMessage());
         }
     }
 
@@ -202,7 +200,7 @@ public class RenterManager {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("ERROR: " + e.getMessage());
         }
 
         return zip;
@@ -216,6 +214,7 @@ public class RenterManager {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, renterId);
             ResultSet rs = stmt.executeQuery();
+
             if (rs.next()) {
                 return new Renter(
                         rs.getInt("renter_id"),
@@ -231,7 +230,7 @@ public class RenterManager {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("ERROR: " + e.getMessage());
         }
         return null;
     }

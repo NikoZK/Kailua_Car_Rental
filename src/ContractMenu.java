@@ -29,8 +29,7 @@ CarManager cm = new CarManager();
             System.out.println(" ");
             System.out.println("                                    Press 9 - Back to main menu");
             System.out.println("                                    Press 0 - exit the program\n");
-            int valg = scanner.nextInt();
-            scanner.nextLine();
+            int valg = Integer.parseInt(scanner.nextLine());
 
             switch (valg) {
                 case 1:
@@ -39,12 +38,15 @@ CarManager cm = new CarManager();
 
                 case 2:
                     System.out.println("Enter the renters id: ");
-                    int renter_id = scanner.nextInt();
-                    scanner.nextLine();
+                    int renter_id = Integer.parseInt(scanner.nextLine());
+                    if (rm == null) {
+                        System.out.println("Renter not found!");
+                        return;
+                    }
 
                     System.out.println("Enter the car id: ");
-                    int car_id = scanner.nextInt();
-                    scanner.nextLine();
+                    int car_id = Integer.parseInt(scanner.nextLine());
+
 
                     Renter renter = rm.getRenterById(renter_id);
                     Car car = cm.getCarById(car_id);
@@ -72,8 +74,7 @@ CarManager cm = new CarManager();
                     }
 
                     System.out.println("Enter the max kilometers: ");
-                    int max_km = scanner.nextInt();
-                    scanner.nextLine();
+                    int max_km = Integer.parseInt(scanner.nextLine());
 
                     int odometer_start = car.getOdometer();
 
@@ -86,16 +87,16 @@ CarManager cm = new CarManager();
 
                 case 3:
                     System.out.println("Enter the the contract id you want to delete: ");
-                    int contractid = scanner.nextInt();
+                    int contractid = Integer.parseInt(scanner.nextLine());
                     ctm.deleteContract(contractid);
                     break;
 
                 case 4:
                     System.out.println("Enter contract id: ");
-                    int contractId = scanner.nextInt();
+                    int contractId = Integer.parseInt(scanner.nextLine());
 
                     System.out.println("Enter the odometer reading: ");
-                    int odometer_end = scanner.nextInt();
+                    int odometer_end = Integer.parseInt(scanner.nextLine());
 
                     ctm.concludeContract(odometer_end, contractId);
                     break;

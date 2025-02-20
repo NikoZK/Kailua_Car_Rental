@@ -1,5 +1,3 @@
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,11 +15,10 @@ public class CarManager {
              ResultSet rs = stmt.executeQuery()) {
             System.out.println("\nAll our available cars\n");
             while (rs.next()) {
-                while (rs.next()) {
                     System.out.println("[ Car ID " + rs.getString("car_id") + " ] [ Model: " + rs.getString("brand") + " " + rs.getString("model")
                             + " ] [ Registration number: " + rs.getString("reg_number") + " ] " + (rs.getBoolean("available") ? "Available" : "Not Available"));
                 }
-            }
+
         } catch (SQLException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
@@ -51,7 +48,7 @@ public class CarManager {
         System.out.println("The current odometer reading of the " + getCarById(Integer.parseInt(car_id)).getBrand() + " " + getCarById(Integer.parseInt(car_id)).getModel() + " is: " + getCarById(Integer.parseInt(car_id)).getOdometer());
 
         System.out.println("Enter the new odometer reading:");
-        int newOdometer = scanner.nextInt();
+        int newOdometer = Integer.parseInt(scanner.nextLine());
 
         String sql = "UPDATE car SET odometer = ? WHERE car_id = ?";
 
@@ -103,6 +100,7 @@ public class CarManager {
 
     public void showLuxuryCars() {
         String sql = "SELECT * FROM car WHERE cargroup_id = 1";
+
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -121,10 +119,12 @@ public class CarManager {
 
     public void showFamilyCars() {
         String sql = "SELECT * FROM car WHERE cargroup_id = 2";
+
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             System.out.println("\nAll of our family cars have manual gear, air condition and 7 seats or more\n");
+
             while (rs.next()) {
                 String availableText = rs.getBoolean("available") ? " " : " [ Not Available ]";
                     System.out.println("Model: " + rs.getString("brand") + " " + rs.getString("model")
@@ -138,10 +138,12 @@ public class CarManager {
 
     public void showSportsCars() {
         String sql = "SELECT * FROM car WHERE cargroup_id = 3";
+
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             System.out.println("\nAll of our sports cars are manual and push beyond 200 horsepower\n");
+
             while (rs.next()) {
                 String availableText = rs.getBoolean("available") ? " " : " [ Not Available ]";
                     System.out.println("Model: " + rs.getString("brand") + " " + rs.getString("model")
@@ -155,9 +157,9 @@ public class CarManager {
     public void addCar(Car car) {
         String sql = "INSERT INTO Car (brand, model, fuel_type, is_automatic, have_leatherseats, have_aircondition, have_cruisecontrol, seats, horsepower, cc, reg_number, reg_date, odometer, cargroup_id)\n" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\n";
+
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, car.getBrand());
             stmt.setString(2, car.getModel());
             stmt.setString(3, car.getFuelType().toString());
@@ -172,8 +174,8 @@ public class CarManager {
             stmt.setDate(12, new java.sql.Date(car.getRegDate().getTime()));
             stmt.setInt(13, car.getOdometer());
             stmt.setInt(14, car.getCargroupId());
-
             stmt.executeUpdate();
+
         } catch (SQLException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
@@ -182,7 +184,7 @@ public class CarManager {
 
     public void showCarInfo() {
         System.out.println("Enter the id of the car:");
-        int car_id = scanner.nextInt();
+        int car_id = Integer.parseInt(scanner.nextLine());
 
         String sql = "SELECT * FROM car WHERE car_id = ?";
 
@@ -218,16 +220,18 @@ public class CarManager {
 
     public Car getCarById(int carId) {
         String sql = "SELECT * FROM car WHERE car_id = ?";
+
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, carId);
             ResultSet rs = stmt.executeQuery();
+
             if (rs.next()) {
                 return new Car(
                         rs.getInt("car_id"),
                         rs.getString("brand"),
                         rs.getString("model"),
-                        FuelType.valueOf(rs.getString("fuel_type")), // Convert from String to Enum
+                        FuelType.valueOf(rs.getString("fuel_type").toUpperCase()), // String til ENUM
                         rs.getBoolean("is_automatic"),
                         rs.getBoolean("have_leatherseats"),
                         rs.getBoolean("have_aircondition"),

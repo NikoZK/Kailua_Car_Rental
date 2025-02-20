@@ -27,8 +27,7 @@ public class RenterMenu {
             System.out.println(" ");
             System.out.println("                          Press 9 - Back to main menu");
             System.out.println("                          Press 0 - Exit the program\n");
-            int valg = scanner.nextInt();
-            scanner.nextLine();
+            int valg = Integer.parseInt(scanner.nextLine());
 
             switch (valg) {
                 case 1:
@@ -93,12 +92,11 @@ public class RenterMenu {
                         System.out.println("ID: " + r.getRenter_id() + ". Name: " + r.getF_name() + " " + r.getL_name());
                     }
                     System.out.println("Enter the ID of the renter you want to delete: ");
-                    int renterDelete = scanner.nextInt();
-                    scanner.nextLine();
+                    int renterDelete = Integer.parseInt(scanner.nextLine());
 
                     rm.deleteRenter(renterDelete);
                     System.out.println("Renter successfully deleted from the system.");
-                     break;
+                    break;
 
                 case 4:
                     rm.modifyRenter();

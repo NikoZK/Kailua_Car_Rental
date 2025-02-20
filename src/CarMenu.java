@@ -8,7 +8,6 @@ public class CarMenu {
     CarManager cm = new CarManager();
 
     public void Car_Menu() {
-
         while (true) {
             System.out.println(" ");
             System.out.println(" ██████  █████  ██████      ███    ███ ███████ ███    ██ ██    ██ \n" +
@@ -28,8 +27,7 @@ public class CarMenu {
             System.out.println(" ");
             System.out.println("                 Press 9 - Back to main menu");
             System.out.println("                 Press 0 - exit the program\n");
-            int valg = scanner.nextInt();
-            scanner.nextLine();
+            int valg = Integer.parseInt(scanner.nextLine());
 
             switch (valg) {
                 case 1:
@@ -44,31 +42,29 @@ public class CarMenu {
                     String model = scanner.nextLine();
 
                     System.out.print("Enter fuel type (Gasoline/Diesel/Electric/Hybrid): ");
-                    String fuelTypeInput = scanner.nextLine();
-                    FuelType fuelType = FuelType.valueOf(fuelTypeInput.toUpperCase());
+                    String fuelTypeInput = scanner.nextLine().toUpperCase();
+                    FuelType fuelType = FuelType.valueOf(fuelTypeInput);
 
-                    System.out.print("Is the car automatic? (true/false): ");
-                    boolean isAutomatic = scanner.nextBoolean();
+                    System.out.print("Is the car automatic? (y/n): ");
+                    boolean isAutomatic = scanner.nextLine().trim().equalsIgnoreCase("y");
 
-                    System.out.print("Does it have leather seats? (true/false): ");
-                    boolean leatherSeats = scanner.nextBoolean();
+                    System.out.print("Does it have leather seats? (y/n): ");
+                    boolean leatherSeats = scanner.nextLine().trim().equalsIgnoreCase("y");
 
-                    System.out.print("Does it have air conditioning? (true/false): ");
-                    boolean airCondition = scanner.nextBoolean();
+                    System.out.print("Does it have air conditioning? (y/n): ");
+                    boolean airCondition = scanner.nextLine().trim().equalsIgnoreCase("y");
 
-                    System.out.print("Does it have cruise control? (true/false): ");
-                    boolean cruiseControl = scanner.nextBoolean();
+                    System.out.print("Does it have cruise control? (y/n): ");
+                    boolean cruiseControl = scanner.nextLine().trim().equalsIgnoreCase("y");
 
                     System.out.print("Enter number of seats: ");
-                    int seats = scanner.nextInt();
+                    int seats = Integer.parseInt(scanner.nextLine());
 
                     System.out.print("Enter horsepower: ");
-                    int horsepower = scanner.nextInt();
+                    int horsepower = Integer.parseInt(scanner.nextLine());
 
                     System.out.print("Enter engine size (cc): ");
-                    int cc = scanner.nextInt();
-
-                    scanner.nextLine();
+                    int cc = Integer.parseInt(scanner.nextLine());
 
                     System.out.print("Enter registration number: ");
                     String regNumber = scanner.nextLine();
@@ -85,7 +81,7 @@ public class CarMenu {
                     }
 
                     System.out.print("Enter odometer reading: ");
-                    int odometer = scanner.nextInt();
+                    int odometer = Integer.parseInt(scanner.nextLine());
 
                     boolean available = true;
 
@@ -99,7 +95,7 @@ public class CarMenu {
 
                 case 3:
                     System.out.println("Enter the car id of the car you want to delete");
-                    int deleteCarId = scanner.nextInt();
+                    int deleteCarId = Integer.parseInt(scanner.nextLine());
                     cm.deleteCar(deleteCarId);
                     break;
 
@@ -132,8 +128,7 @@ public class CarMenu {
             System.out.println("Press 3 - see all family cars");
             System.out.println("Press 4 - see all sports cars");
             System.out.println("Press 9 - return");
-            int valg = scanner.nextInt();
-            scanner.nextLine();
+            int valg = Integer.parseInt(scanner.nextLine());
 
             switch (valg) {
                 case 1:
